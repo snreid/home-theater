@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+
+    %h1 New DVD
+    - if @location
+      %h4="Shelf: #{@location.shelf} Row: #{@location.row} Stack: #{@location.stack}"
+
+    = render 'form'
+
+    = link_to 'Back', dvds_path

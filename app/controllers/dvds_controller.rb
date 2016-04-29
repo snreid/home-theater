@@ -1,9 +1,11 @@
-class DvDsController < ApplicationController
+class DvdsController < ApplicationController
   before_action :set_dvd, only: [:show, :edit, :update, :destroy]
+  before_action :set_location, only: [:new, :edit, :update, :destroy]
 
   # GET /dvds
   # GET /dvds.json
   def index
+    #TODO: Fancy searching here
     @dvds = Dvd.all
   end
 
@@ -37,6 +39,9 @@ class DvDsController < ApplicationController
     end
   end
 
+  def create_by_upc
+  end
+
   # PATCH/PUT /dvds/1
   # PATCH/PUT /dvds/1.json
   def update
@@ -65,6 +70,10 @@ class DvDsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_dvd
       @dvd = Dvd.find(params[:id])
+    end
+
+    def set_location
+      @location = (params[:location_id]) ? Location.find(params[:location_id]) : nil
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

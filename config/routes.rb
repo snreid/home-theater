@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :dvds
-  resources :locations
+  resources :locations do
+    resources :dvds
+  end
+
+
   resources :home_theater_infos do
     collection { post :import }
   end

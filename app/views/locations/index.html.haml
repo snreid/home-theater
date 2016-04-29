@@ -10,7 +10,7 @@
         %th Shelf
         %th Row
         %th Stack
-        %th{colspan:"3"}
+        %th{colspan:"3"} Actions
 
     %tbody
       - @locations.each do |location|
@@ -18,6 +18,8 @@
           %td= location.shelf
           %td= location.row
           %td= location.stack
+
+          %td= link_to 'Add DVDs', new_location_dvd_path(location)
           %td= link_to 'Edit', edit_location_path(location)
           %td= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' }
 
