@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title Home Theater
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-default
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{ type: "button", "data-toggle" => "collapse", "data-target" => "#bs-example-navbar-collapse-1", "aria-expand" => "false"}
+            %span.sr-only
+              Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          .navbar-brand{ href: "#"}
+            Home Theater
+
+        .collapse.navbar-collapse#bs-example-navbar-collapse-1
+          %ul.nav.navbar-nav
+            %li
+              = link_to 'Import DVDs', home_theater_infos_path
+            %li
+              = link_to 'Locations', locations_path
+    .container
+      = yield

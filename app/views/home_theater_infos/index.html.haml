@@ -1,0 +1,12 @@
+.row
+  .col-md-12
+    %h2 Import Home Theater Info CSV
+
+    .well
+      To download the latest and greatest, just visit
+      %a{href: "http://www.hometheaterinfo.com/dvdlist.htm", target: "_blank"} Home Theater Info
+
+    = form_tag import_home_theater_infos_path, multipart: true do
+      = file_field_tag :file
+      %br
+      = submit_tag "Import", class: "btn btn-success"

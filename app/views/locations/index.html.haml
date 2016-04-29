@@ -1,0 +1,26 @@
+.row
+.col-md-12
+  %p{id: "notice"}= notice
+
+  %h1 Locations
+
+  %table.table
+    %thead
+      %tr
+        %th Shelf
+        %th Row
+        %th Stack
+        %th{colspan:"3"}
+
+    %tbody
+      - @locations.each do |location|
+        %tr
+          %td= location.shelf
+          %td= location.row
+          %td= location.stack
+          %td= link_to 'Edit', edit_location_path(location)
+          %td= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' }
+
+  <br>
+
+  = link_to 'New Location', new_location_path
