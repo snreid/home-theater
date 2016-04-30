@@ -5,7 +5,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body
+  %body{ class: "#{controller_name} #{action_name}" }
     %nav.navbar.navbar-default
       .container
         .navbar-header
@@ -24,6 +24,8 @@
               = link_to 'Import DVDs', home_theater_infos_path
             %li
               = link_to 'Locations', locations_path
+            %li
+              = link_to 'Search', dvds_path
     .container
       .row
         .col-md-12

@@ -1,12 +1,13 @@
 class DvdsController < ApplicationController
   before_action :set_dvd, only: [:show, :edit, :update, :destroy]
-  before_action :set_location, only: [:new, :edit, :update, :create, :upc_create]
+  before_action :set_location
 
   # GET /dvds
   # GET /dvds.json
   def index
     #TODO: Fancy searching here
-    @dvds = Dvd.all
+    @locations = Location.all
+    @dvds = (@location.present? ? @location.dvds : Dvd.all)
   end
 
   # GET /dvds/1
