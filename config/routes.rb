@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :dvds
+  resources :dvds do
+    collection { post :upc_create }
+  end
+
   resources :locations do
     resources :dvds
   end

@@ -1,9 +1,9 @@
 .row
   .col-md-12
-    = form_tag import_home_theater_infos_path, multipart: true do
-      = file_field_tag :file
+    = form_tag upc_create_dvds_path(location_id: @location.try(:id)), multipart: true do
+      = text_field_tag :upc_code, nil, class: "form-control"
       %br
-      = submit_tag "Import", class: "btn btn-success"
+      = submit_tag "Create", class: "btn btn-success"
 .row
   .col-md-12
     = form_for @dvd do |f|

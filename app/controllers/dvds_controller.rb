@@ -1,6 +1,6 @@
 class DvdsController < ApplicationController
   before_action :set_dvd, only: [:show, :edit, :update, :destroy]
-  before_action :set_location, only: [:new, :edit, :update, :destroy]
+  before_action :set_location, only: [:new, :edit, :update, :create, :upc_create]
 
   # GET /dvds
   # GET /dvds.json
@@ -39,7 +39,21 @@ class DvdsController < ApplicationController
     end
   end
 
-  def create_by_upc
+  def upc_create
+    info = HomeTheaterInfo.find_by_upc(params[:upc_code])
+    if info
+      @dvd = Dvd.find_or_create_by(home_theater_info: info, location: @location)
+      if @dvd.save
+        flash[:success] = 'DVD was successfully create.'
+        redirect_to get_path
+      else
+        flash[:error] = 'Something went wrong, DVD not created.'
+        redirect_to get_path
+      end
+    else
+      flash[:error] = 'DVD not found in database, you will have to manually add it.'
+      redirect_to get_path
+    end
   end
 
   # PATCH/PUT /dvds/1
@@ -67,6 +81,11 @@ class DvdsController < ApplicationController
   end
 
   private
+
+    def get_path
+      @location.present? ? new_location_dvd_path(@location) : new_dvd_path
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_dvd
       @dvd = Dvd.find(params[:id])
