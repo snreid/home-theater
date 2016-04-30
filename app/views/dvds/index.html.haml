@@ -13,9 +13,9 @@
       = form_tag dvds_path, method: 'get', id: 'dvds_search' do
         Shelf
         = select_tag :shelf, options_for_select(shelves, params[:shelf]), include_blank: true
-        Row
+        &nbsp;Row
         = select_tag :row, options_for_select(rows, params[:row]), include_blank: true
-        Stack
+        &nbsp;Stack
         = select_tag :stack, options_for_select(stacks, params[:stack]), include_blank: true
         = submit_tag "Filter", class: 'btn btn-default'
 .container.dvd-search
