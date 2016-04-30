@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160429192051) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "dvds", force: :cascade do |t|
     t.integer  "location_id"
     t.integer  "home_theater_info_id"
@@ -37,8 +40,6 @@ ActiveRecord::Schema.define(version: 20160429192051) do
     t.datetime "dvd_releasedate"
     t.string   "home_theater_info_id"
     t.datetime "timestamp"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
   end
 
   create_table "locations", force: :cascade do |t|

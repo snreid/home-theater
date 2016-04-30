@@ -17,7 +17,6 @@ class CreateHomeTheaterInfos < ActiveRecord::Migration
       t.datetime :dvd_releasedate
       t.string :home_theater_info_id
       t.datetime :timestamp
-      t.timestamps null: false
     end
   end
 end
