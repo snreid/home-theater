@@ -24,30 +24,32 @@ class DvdsController < ApplicationController
   # GET /dvds/new
   def new
     @dvd = Dvd.new
+    @locations = Location.all.ordered
   end
 
   # GET /dvds/1/edit
   def edit
+    @locations = Location.all.ordered
   end
 
   # POST /dvds
   # POST /dvds.json
   def create
     @dvd = Dvd.new(dvd_params)
+    info = get_home_theater_info
+    @dvd.home_theater_info  = info if info
 
     respond_to do |format|
       if @dvd.save
         format.html { redirect_to @dvd, notice: 'Dvd was successfully created.' }
-        format.json { render :show, status: :created, location: @dvd }
       else
         format.html { render :new }
-        format.json { render json: @dvd.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def upc_create
-    info = HomeTheaterInfo.find_by_upc(params[:upc_code])
+    info = get_home_theater_info
     if info
       @dvd = Dvd.find_or_create_by(home_theater_info: info, location: @location)
       if @dvd.save
@@ -66,6 +68,9 @@ class DvdsController < ApplicationController
   # PATCH/PUT /dvds/1
   # PATCH/PUT /dvds/1.json
   def update
+    info = get_home_theater_info
+    @dvd.home_theater_info  = info if info
+
     respond_to do |format|
       if @dvd.update(dvd_params)
         format.html { redirect_to @dvd, notice: 'Dvd was successfully updated.' }
@@ -89,6 +94,10 @@ class DvdsController < ApplicationController
 
   private
 
+    def get_home_theater_info
+      HomeTheaterInfo.find_by_upc(params[:upc_code])
+    end
+
     def get_path
       @location.present? ? new_location_dvd_path(@location) : new_dvd_path
     end
@@ -104,7 +113,7 @@ class DvdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dvd_params
-      params.require(:dvd).permit(:note)
+      params.require(:dvd).permit(:title, :genre, :note)
     end
 
     def location_filter_params

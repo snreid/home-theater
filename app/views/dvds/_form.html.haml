@@ -1,11 +1,16 @@
 .row
   .col-md-12
+    %h2 Quick Scan
     = form_tag upc_create_dvds_path(location_id: @location.try(:id)), multipart: true do
       = text_field_tag :upc_code, nil, class: "form-control"
       %br
       = submit_tag "Create", class: "btn btn-success"
+
+.row &nbsp;
+
 .row
-  .col-md-12
+  .col-md-12.well
+    %h2 Manual
     = form_for @dvd do |f|
       - if @dvd.errors.any?
         #error_explanation
@@ -17,5 +22,23 @@
             - @dvd.errors.full_messages.each do |message|
               %li= message
 
+      .form-group
+        %label{for: "Title"} Title
+        = f.text_field :title, class: "form-control"
+      .form-group
+        %label{for: "genre"} Genre
+        = f.text_field :genre, class: "form-control"
+      .form-group
+        %label{for: "note"} Notes
+        = f.text_area :note, class: "form-control"
+      .form-group
+        %label{for: "location"} Location
+        = f.select :location_id, options_for_select(@locations.collect { |l| [ l.print, l.id ] }, @dvd.location_id || @location.try(:id)), class: "form-control", include_blank: "-- Choose --"
+
+      .form-group
+        %label{for: "upc"} UPC Code
+      = text_field_tag :upc_code, nil, class: "form-control"
+
+      .row &nbsp;
       .actions
-        = f.submit
+        = f.submit class: "btn btn-success"
