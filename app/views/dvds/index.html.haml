@@ -1,35 +1,50 @@
+- shelves = @locations.each.collect(&:shelf).uniq
+- rows = @locations.each.collect(&:row).uniq
+- stacks = @locations.each.collect(&:stack).uniq
 .row
   .col-md-12
     %h1 DVDs
 
 .row
-  .col-md-2
+  .col-md-12
     .well
       %p
-        %strong Location
-      - @locations.each do |location|
-        = link_to location.print, location_dvds_path(location)
-        <br>
-
-  .col-md-10
-    %table.dvds-table
+        %strong Filter Location
+      = form_tag dvds_path, method: 'get', id: 'dvds_search' do
+        Shelf
+        = select_tag :shelf, options_for_select(shelves, params[:shelf]), include_blank: true
+        Row
+        = select_tag :row, options_for_select(rows, params[:row]), include_blank: true
+        Stack
+        = select_tag :stack, options_for_select(stacks, params[:stack]), include_blank: true
+        = submit_tag "Filter", class: 'btn btn-default'
+.container.dvd-search
+  .row
+    %table.dvds-table.table-striped
       %thead
         %tr
-          %th
+          %th Title
+          %th Location
+          %th Genre
+          %th Notes
+          %th Actions
       %tbody
         - @dvds.each do |dvd|
           %tr
             %td
-              .well
-                = "<strong>#{ dvd.home_theater_info.dvd_title }</strong><br>".html_safe
-                = "#{ dvd.note } <br>".html_safe unless dvd.note.nil?
-                = "Location: #{ dvd.location.print }"
-                .text-right
-                  = link_to 'Show', dvd
-                  &nbsp;|&nbsp;
-                  = link_to 'Edit', edit_dvd_path(dvd)
-                  &nbsp;|&nbsp;
-                  = link_to 'Destroy', dvd, method: :delete, data: { confirm: 'Are you sure?' }
+              %strong= dvd.home_theater_info.dvd_title
+            %td
+              = "Location: #{ dvd.location.print }" unless dvd.location.nil?
+            %td
+              = dvd.home_theater_info.genre
+            %td
+              = dvd.note
+            %td
+              = link_to 'Show', dvd
+              &nbsp;|&nbsp;
+              = link_to 'Edit', edit_dvd_path(dvd)
+              &nbsp;|&nbsp;
+              = link_to 'Destroy', dvd, method: :delete, data: { confirm: 'Are you sure?' }
 
   <br>
 

@@ -7,7 +7,13 @@ class DvdsController < ApplicationController
   def index
     #TODO: Fancy searching here
     @locations = Location.all
-    @dvds = (@location.present? ? @location.dvds : Dvd.all)
+    if location_filter_params.present?
+      conditions = location_filter_params.delete_if {|k,v| v.empty?}
+      dvd_locations = Location.includes(dvds: :home_theater_info).where(conditions)
+      @dvds = dvd_locations.collect {|l| l.dvds}.flatten
+    else
+      @dvds = Dvd.includes(:home_theater_info).all
+    end
   end
 
   # GET /dvds/1
@@ -98,6 +104,10 @@ class DvdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dvd_params
-      params.fetch(:dvd, {})
+      params.require(:dvd).permit(:note)
+    end
+
+    def location_filter_params
+      params.permit(:shelf, :row, :stack)
     end
 end
