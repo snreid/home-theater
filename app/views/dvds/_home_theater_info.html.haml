@@ -1,0 +1,37 @@
+.well
+  %h3 Home Theater Info
+  .row
+    .col-md-1
+      %strong Title
+    .col-md-4
+      = info.dvd_title
+  .row
+    .col-md-1
+      %strong Genre
+    .col-md-4
+      = info.genre
+  .row
+    .col-md-1
+      %strong UPC
+    .col-md-4
+      = info.upc
+  .row
+    .col-md-1
+      %strong Studio
+    .col-md-4
+      = info.studio
+  .row
+    .col-md-1
+      %strong Rating
+    .col-md-4
+      = info.rating
+  .row
+    .col-md-1
+      %strong Released
+    .col-md-4
+      = info.released || "--"
+  .row
+    .col-md-1
+      %strong Year
+    .col-md-4
+      = info.year

@@ -22,4 +22,12 @@ module ApplicationHelper
     end
     flash_messages.join("\n").html_safe
   end
+
+  def title_for(dvd)
+    dvd.title.present? ? dvd.title : dvd.home_theater_info.dvd_title
+  end
+
+  def genre_for(dvd)
+    dvd.genre.present? ? dvd.genre : dvd.home_theater_info.genre
+  end
 end

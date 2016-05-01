@@ -32,11 +32,11 @@
         - @dvds.each do |dvd|
           %tr
             %td
-              %strong= dvd.title || dvd.home_theater_info.dvd_title
+              %strong= title_for(dvd)
             %td
               = "Location: #{ dvd.location.try(:print) }" unless dvd.location.nil?
             %td
-              = dvd.genre || dvd.home_theater_info.genre
+              = genre_for(dvd)
             %td
               = dvd.note
             %td

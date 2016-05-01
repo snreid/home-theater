@@ -1,16 +1,5 @@
 .row
-  .col-md-12
-    %h2 Quick Scan
-    = form_tag upc_create_dvds_path(location_id: @location.try(:id)), multipart: true do
-      = text_field_tag :upc_code, nil, class: "form-control"
-      %br
-      = submit_tag "Create", class: "btn btn-success"
-
-.row &nbsp;
-
-.row
   .col-md-12.well
-    %h2 Manual
     = form_for @dvd do |f|
       - if @dvd.errors.any?
         #error_explanation
@@ -22,12 +11,17 @@
             - @dvd.errors.full_messages.each do |message|
               %li= message
 
+      - if @dvd.home_theater_info
+        = render 'home_theater_info', info: @dvd.home_theater_info
+
       .form-group
         %label{for: "Title"} Title
         = f.text_field :title, class: "form-control"
+        %span.help-block This title will override the title in the Home Theater Info
       .form-group
         %label{for: "genre"} Genre
         = f.text_field :genre, class: "form-control"
+        %span.help-block This genre will override the genre in the Home Theater Info
       .form-group
         %label{for: "note"} Notes
         = f.text_area :note, class: "form-control"
@@ -37,7 +31,7 @@
 
       .form-group
         %label{for: "upc"} UPC Code
-      = text_field_tag :upc_code, nil, class: "form-control"
+      = text_field_tag :upc_code, @dvd.home_theater_info.try(:upc), class: "form-control"
 
       .row &nbsp;
       .actions

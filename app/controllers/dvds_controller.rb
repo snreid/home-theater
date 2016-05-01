@@ -53,7 +53,7 @@ class DvdsController < ApplicationController
     if info
       @dvd = Dvd.find_or_create_by(home_theater_info: info, location: @location)
       if @dvd.save
-        flash[:success] = 'DVD was successfully create.'
+        flash[:success] = 'DVD was successfully created.'
         redirect_to get_path
       else
         flash[:error] = 'Something went wrong, DVD not created.'
@@ -69,10 +69,10 @@ class DvdsController < ApplicationController
   # PATCH/PUT /dvds/1.json
   def update
     info = get_home_theater_info
-    @dvd.home_theater_info  = info if info
 
     respond_to do |format|
       if @dvd.update(dvd_params)
+        @dvd.update(home_theater_info: info) if info
         format.html { redirect_to @dvd, notice: 'Dvd was successfully updated.' }
         format.json { render :show, status: :ok, location: @dvd }
       else

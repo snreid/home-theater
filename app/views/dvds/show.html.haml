@@ -6,12 +6,12 @@
       .col-md-1
         %strong Title
       .col-md-4
-        = @dvd.title || @dvd.home_theater_info.dvd_title
+        = title_for(@dvd)
     .row
       .col-md-1
         %strong Genre
       .col-md-4
-        = @dvd.genre || @dvd.home_theater_info.genre
+        = genre_for(@dvd)
     .row
       .col-md-1
         %strong Notes
@@ -21,46 +21,9 @@
   .row &nbsp;
   .row &nbsp;
 
-  - if @dvd.home_theater_info
-    .well
-      %h3 Home Theater Info
-      .row
-        .col-md-1
-          %strong Title
-        .col-md-4
-          = @dvd.home_theater_info.dvd_title
-      .row
-        .col-md-1
-          %strong Genre
-        .col-md-4
-          = @dvd.home_theater_info.genre
-      .row
-        .col-md-1
-          %strong UPC
-        .col-md-4
-          = @dvd.home_theater_info.upc
-      .row
-        .col-md-1
-          %strong Studio
-        .col-md-4
-          = @dvd.home_theater_info.studio
-      .row
-        .col-md-1
-          %strong Rating
-        .col-md-4
-          = @dvd.home_theater_info.rating
-      .row
-        .col-md-1
-          %strong Released
-        .col-md-4
-          = @dvd.home_theater_info.released || "--"
-      .row
-        .col-md-1
-          %strong Year
-        .col-md-4
-          = @dvd.home_theater_info.year
 
-
+- if @dvd.home_theater_info
+  = render 'home_theater_info', info: @dvd.home_theater_info
 
 .row
   = link_to 'Edit', edit_dvd_path(@dvd), class: 'btn btn-default'

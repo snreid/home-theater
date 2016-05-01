@@ -1,10 +1,26 @@
 .row
   .col-md-12
-
-    %h1 New DVD
     - if @location
-      %h4= @location.print
+      %h1= "New DVD for #{@location.print}"
+    - else
+      %h1 New DVD
 
+.row
+  .col-md-12
+    %h2
+      Quick Add
+      %small Scan UPC then hit Enter key or Click Create
+
+    = form_tag upc_create_dvds_path(location_id: @location.try(:id)), multipart: true do
+      = text_field_tag :upc_code, nil, class: "form-control"
+      %br
+      = submit_tag "Create", class: "btn btn-success"
+
+.row &nbsp;
+
+.row
+  .col-md-12
+    %h2 Manual Add
     = render 'form'
 
-    = link_to 'Back', dvds_path
+    = link_to 'Back', dvds_path, class: 'btn btn-default'
