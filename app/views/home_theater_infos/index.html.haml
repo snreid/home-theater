@@ -1,6 +1,9 @@
 .row
   .col-md-12
-    %h2 Import Home Theater Info CSV
+    %h2 Imported Home Theater Info
+.row
+  .col-md-12.well
+    %h3 Import Home Theater Info CSV
 
     .well
       To download the latest and greatest, just visit
@@ -10,3 +13,37 @@
       = file_field_tag :file
       %br
       = submit_tag "Import", class: "btn btn-success"
+
+%h2 Search
+= form_tag request.path, method: 'get' do
+  = content_tag :label do
+    Title:
+    = text_field_tag :search, params[:search]
+
+.row &nbsp;
+
+.row
+  .col-md-12
+    .container.ht-dvd-search
+      .row
+        %table.ht-dvds-table.table-striped
+          %thead
+            %tr
+              %th Title
+              %th Genre
+              %th UPC
+          %tbody
+            - @home_theater_infos.each do |dvd|
+              %tr
+                %td
+                  %strong= dvd.dvd_title
+                %td
+                  = dvd.genre
+                %td
+                  = dvd.upc
+
+.row &nbsp;
+.row
+  .col-md-12
+    .apple_pagination
+      = will_paginate @home_theater_infos

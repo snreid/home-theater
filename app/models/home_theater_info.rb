@@ -1,4 +1,12 @@
 class HomeTheaterInfo < ActiveRecord::Base
+  def self.search(page, search = nil)
+    if search.present?
+      where('dvd_title like ?', "%#{search}%").paginate page: page
+    else
+      paginate page: page
+    end
+  end
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     spreadsheet.each do |row|

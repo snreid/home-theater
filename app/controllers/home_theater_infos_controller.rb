@@ -4,7 +4,7 @@ class HomeTheaterInfosController < ApplicationController
   # GET /home_theater_infos
   # GET /home_theater_infos.json
   def index
-    @home_theater_infos = HomeTheaterInfo.all
+    @home_theater_infos = HomeTheaterInfo.search(params[:page], params[:search])
   end
 
   # GET /home_theater_infos/1
