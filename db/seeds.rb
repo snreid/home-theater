@@ -8,7 +8,7 @@
 
 puts "Adding default locations"
 MAX_SHELVES = 4
-MAX_ROWS = 5
+MAX_ROWS = 6
 MAX_STACKS = 3
 
 MAX_SHELVES.times do |shelf|
