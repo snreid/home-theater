@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430192216) do
+ActiveRecord::Schema.define(version: 20160521234448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20160430192216) do
     t.string   "title"
     t.string   "genre"
   end
+
+  add_index "dvds", ["home_theater_info_id"], name: "home_theater_info_id_ix", using: :btree
 
   create_table "home_theater_infos", force: :cascade do |t|
     t.text     "dvd_title"
