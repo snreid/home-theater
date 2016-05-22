@@ -12,7 +12,7 @@ class DvdsController < ApplicationController
       dvd_locations = Location.includes(dvds: :home_theater_info).where(conditions)
       @dvds = dvd_locations.collect {|l| l.dvds}.flatten
     else
-      @dvds = Dvd.includes(:home_theater_info).all
+      @dvds = Dvd.includes(:home_theater_info).includes(:location).all
     end
   end
 
